@@ -1,9 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title description">
   <title id="title">Paper Notes logo</title>
   <desc id="description">A folded sheet of paper with a green handwritten mark</desc>
-  <rect width="64" height="64" rx="15" fill="#233027"/>
-  <path d="M18 11h20l10 10v32H18z" fill="#edf4eb"/>
-  <path d="M38 11v10h10" fill="#c8d6c5"/>
-  <path d="M38 11v10h10" fill="none" stroke="#4f7758" stroke-linejoin="round" stroke-width="2"/>
-  <path d="M25 29h16M25 36h14M25 43h9" fill="none" stroke="#4f7758" stroke-linecap="round" stroke-width="3"/>
+  <style>
+    .background{fill:#233027}.paper{fill:#edf4eb}.fold{fill:#c8d6c5}.ink{stroke:#4f7758}
+    @media (prefers-color-scheme:dark){.background{fill:#93c19b}.paper{fill:#18251d}.fold{fill:#314238}.ink{stroke:#b8d9bd}}
+  </style>
+  <rect class="background" width="64" height="64" rx="15"/>
+  <path class="paper" d="M18 11h20l10 10v32H18z"/>
+  <path class="fold" d="M38 11v10h10"/>
+  <path class="ink" d="M38 11v10h10" fill="none" stroke-linejoin="round" stroke-width="2"/>
+  <path class="ink" d="M25 29h16M25 36h14M25 43h9" fill="none" stroke-linecap="round" stroke-width="3"/>
 </svg>

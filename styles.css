@@ -1,5 +1,5 @@
-:root { --paper:#edf4eb; --sidebar:#dfe9dc; --ink:#233027; --muted:#68776b; --line:#c8d6c5; --accent:#4f7758; --white:#fbfdf9; --canvas:#a8bca6; --input:#f7f5ef; --body-ink:#45443f; --soft-hover:#ffffff69; --button-hover:#ebe8df; --key:#fbfaf6; --key-line:#d5d1c6; --avatar:#c7bba8; color-scheme:light; }
-:root[data-depth="deep"] { --paper:#18251d; --sidebar:#111d16; --ink:#edf5e9; --muted:#9eafa2; --line:#314238; --accent:#93c19b; --white:#223128; --canvas:#0a110d; --input:#1a281f; --body-ink:#d5dfd3; --soft-hover:#ffffff0d; --button-hover:#2b3b31; --key:#25352b; --key-line:#425449; --avatar:#66816c; color-scheme:dark; }
+:root { --paper:#edf4eb; --sidebar:#dfe9dc; --ink:#233027; --muted:#68776b; --line:#c8d6c5; --accent:#4f7758; --white:#fbfdf9; --canvas:#a8bca6; --input:#f7f5ef; --body-ink:#45443f; --soft-hover:#ffffff69; --button-hover:#ebe8df; --key:#fbfaf6; --key-line:#d5d1c6; --avatar:#c7bba8; --logo-bg:#233027; --logo-paper:#edf4eb; --logo-fold:#c8d6c5; --logo-ink:#4f7758; color-scheme:light; }
+:root[data-depth="deep"] { --paper:#18251d; --sidebar:#111d16; --ink:#edf5e9; --muted:#9eafa2; --line:#314238; --accent:#93c19b; --white:#223128; --canvas:#0a110d; --input:#1a281f; --body-ink:#d5dfd3; --soft-hover:#ffffff0d; --button-hover:#2b3b31; --key:#25352b; --key-line:#425449; --avatar:#66816c; --logo-bg:#93c19b; --logo-paper:#18251d; --logo-fold:#314238; --logo-ink:#b8d9bd; color-scheme:dark; }
 * { box-sizing:border-box; }
 html, body { margin:0; min-height:100%; }
 body { background:var(--canvas); color:var(--ink); font-family:"DM Sans",sans-serif; transition:background-color .25s ease,color .25s ease; }
@@ -33,6 +33,9 @@ kbd { padding:2px 5px; border:1px solid var(--key-line); border-bottom-width:2px
 .theme-toggle-icon::after { position:absolute; inset:-1px -1px -1px 50%; background:currentColor; content:""; }
 :root[data-depth="deep"] .theme-toggle-icon { transform:rotate(180deg); }
 .profile-avatar { display:block; flex:none; width:34px; height:34px; border-radius:9px; box-shadow:0 1px 4px #0002; }
+.logo-background { fill:var(--logo-bg); }.logo-paper { fill:var(--logo-paper); }.logo-fold { fill:var(--logo-fold); }
+.logo-fold-line,.logo-writing { fill:none; stroke:var(--logo-ink); stroke-linejoin:round; stroke-width:2; }
+.logo-writing { stroke-linecap:round; stroke-width:3; }
 .profile-copy { display:flex; flex:1; flex-direction:column; font-size:12px; }
 .profile-copy span { color:var(--muted); font-size:10px; }
 .icon-button,.text-button { border:0; background:transparent; cursor:pointer; }

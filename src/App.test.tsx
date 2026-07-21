@@ -35,7 +35,9 @@ describe("Paper desktop app", () => {
 
   it("displays the Paper Notes SVG logo", () => {
     render(<App />);
-    expect(screen.getByRole("img", { name: "Paper Notes" })).toHaveAttribute("src", "./logo.svg");
+    const logo = screen.getByRole("img", { name: "Paper Notes" });
+    expect(logo.tagName).toBe("svg");
+    expect(logo.querySelector(".logo-background")).toBeInTheDocument();
   });
 
   it("edits Markdown and renders a GitHub-flavored preview", async () => {
