@@ -147,7 +147,7 @@ export default function App() {
             <button className="theme-toggle" type="button" aria-pressed={depth === "deep"} aria-label={`Switch to ${depth === "deep" ? "shallow" : "deep"} color scheme`} onClick={() => setDepth(depth === "deep" ? "shallow" : "deep")}>
               <span className="theme-toggle-icon" aria-hidden="true" /><span className="theme-toggle-label">{depth === "deep" ? "Deep" : "Shallow"}</span>
             </button>
-            <div className="profile-avatar" aria-hidden="true">TL</div>
+            <img className="profile-avatar" src="./logo.svg" alt="Paper Notes" />
             <div className="profile-copy"><strong>Tony Li’s workspace</strong><span>Personal</span></div>
             <button className="icon-button" type="button" aria-label="Workspace options">•••</button>
           </div>

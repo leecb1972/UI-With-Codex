@@ -33,6 +33,11 @@ describe("Paper desktop app", () => {
     expect(screen.getByRole("button", { name: "Switch to shallow color scheme" })).toHaveAttribute("aria-pressed", "true");
   });
 
+  it("displays the Paper Notes SVG logo", () => {
+    render(<App />);
+    expect(screen.getByRole("img", { name: "Paper Notes" })).toHaveAttribute("src", "./logo.svg");
+  });
+
   it("edits Markdown and renders a GitHub-flavored preview", async () => {
     const user = userEvent.setup();
     render(<App />);

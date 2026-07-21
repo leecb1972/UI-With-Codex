@@ -32,7 +32,7 @@ kbd { padding:2px 5px; border:1px solid var(--key-line); border-bottom-width:2px
 .theme-toggle-icon { position:relative; width:14px; height:14px; overflow:hidden; border:1px solid currentColor; border-radius:50%; }
 .theme-toggle-icon::after { position:absolute; inset:-1px -1px -1px 50%; background:currentColor; content:""; }
 :root[data-depth="deep"] .theme-toggle-icon { transform:rotate(180deg); }
-.profile-avatar { display:grid; flex:none; place-items:center; width:34px; height:34px; background:var(--avatar); border-radius:50%; font:500 11px "DM Mono",monospace; }
+.profile-avatar { display:block; flex:none; width:34px; height:34px; border-radius:9px; box-shadow:0 1px 4px #0002; }
 .profile-copy { display:flex; flex:1; flex-direction:column; font-size:12px; }
 .profile-copy span { color:var(--muted); font-size:10px; }
 .icon-button,.text-button { border:0; background:transparent; cursor:pointer; }
