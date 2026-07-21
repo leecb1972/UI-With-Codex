@@ -44,6 +44,7 @@ describe("Paper desktop app", () => {
     const heading = screen.getByRole("heading", { name: "Tony Notes" });
     expect(logo.tagName).toBe("svg");
     expect(logo.querySelector(".logo-background")).toBeInTheDocument();
+    expect(logo.querySelector(".logo-monogram")).toBeInTheDocument();
     expect(logo.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 

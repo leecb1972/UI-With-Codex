@@ -131,7 +131,7 @@ export default function App() {
                 <path className="logo-paper" d="M18 11h20l10 10v32H18z" />
                 <path className="logo-fold" d="M38 11v10h10" />
                 <path className="logo-fold-line" d="M38 11v10h10" />
-                <path className="logo-writing" d="M25 29h16M25 36h14M25 43h9" />
+                <path className="logo-monogram" d="M24 29c5-3 13-3 18 0M33 27v17m-5 0c4 3 10 2 13-2" />
               </svg>
               <h1>Tony Notes</h1>
             </div>

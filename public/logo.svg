@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title description">
   <title id="title">Paper Notes logo</title>
-  <desc id="description">A folded sheet of paper with a green handwritten mark</desc>
+  <desc id="description">A folded sheet of paper with a handwritten T monogram</desc>
   <style>
     .background{fill:#233027}.paper{fill:#edf4eb}.fold{fill:#c8d6c5}.ink{stroke:#4f7758}
     @media (prefers-color-scheme:dark){.background{fill:#93c19b}.paper{fill:#18251d}.fold{fill:#314238}.ink{stroke:#b8d9bd}}
@@ -9,5 +9,5 @@
   <path class="paper" d="M18 11h20l10 10v32H18z"/>
   <path class="fold" d="M38 11v10h10"/>
   <path class="ink" d="M38 11v10h10" fill="none" stroke-linejoin="round" stroke-width="2"/>
-  <path class="ink" d="M25 29h16M25 36h14M25 43h9" fill="none" stroke-linecap="round" stroke-width="3"/>
+  <path class="ink" d="M24 29c5-3 13-3 18 0M33 27v17m-5 0c4 3 10 2 13-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"/>
 </svg>
