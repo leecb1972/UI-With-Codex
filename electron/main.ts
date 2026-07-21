@@ -24,6 +24,13 @@ function createWindow(): void {
     return { action: "deny" };
   });
 
+  window.webContents.on("console-message", (details) => {
+    if (details.level === "error") console.error(`[renderer] ${details.message}`);
+  });
+  window.webContents.on("did-fail-load", (_event, code, description, url) => {
+    console.error(`[renderer] Failed to load ${url}: ${code} ${description}`);
+  });
+
   const developmentUrl = process.env.VITE_DEV_SERVER_URL;
   if (developmentUrl) {
     void window.loadURL(developmentUrl);

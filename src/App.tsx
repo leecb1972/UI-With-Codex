@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Editor from "react-simple-code-editor";
+import EditorImport from "react-simple-code-editor";
 import ReactMarkdown from "react-markdown";
 import { highlight, languages } from "prismjs";
 import "prismjs/components/prism-markdown";
 import remarkGfm from "remark-gfm";
 import { countWords, createNote, deriveTitle, duplicateNote, filterNotes, notePreview, sortNotes } from "./notes";
 import type { ColorDepth, Note } from "./types";
+import { resolveDefaultExport } from "./moduleInterop";
+
+const MarkdownEditor = resolveDefaultExport(EditorImport);
 
 const STORAGE_KEY = "paper-notes-v1";
 const THEME_KEY = "paper-color-depth";
@@ -169,7 +172,7 @@ export default function App() {
               {editorMode === "edit" ? (
                 <>
                   <label className="sr-only" htmlFor="note-content">Note content</label>
-                  <Editor
+                  <MarkdownEditor
                     value={activeNote.body}
                     onValueChange={(body) => updateActive({ title: activeNote.title, body })}
                     highlight={(code) => highlight(code, languages.markdown, "markdown")}
