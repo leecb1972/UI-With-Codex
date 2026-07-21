@@ -1,6 +1,7 @@
 import { countWords, createNote, deriveTitle, duplicateNote, filterNotes, notePreview, sortNotes } from "./notes.js";
 
 const STORAGE_KEY = "paper-notes-v1";
+const THEME_KEY = "paper-color-depth";
 const seedNotes = [
   {
     id: "welcome",
@@ -26,12 +27,27 @@ const $ = (selector) => document.querySelector(selector);
 const elements = {
   list: $("#notes-list"), count: $("#note-count"), search: $("#search"), title: $("#note-title"),
   body: $("#note-body"), date: $("#note-date"), words: $("#word-count"), save: $("#save-state"),
-  sidebar: $(".sidebar"), scrim: $("#scrim"),
+  sidebar: $(".sidebar"), scrim: $("#scrim"), theme: $("#theme-toggle"),
 };
 
 let notes = loadNotes();
 let activeId = notes[0]?.id;
 let saveTimer;
+
+function applyTheme(depth) {
+  const isDeep = depth === "deep";
+  document.documentElement.dataset.depth = isDeep ? "deep" : "shallow";
+  elements.theme.setAttribute("aria-pressed", String(isDeep));
+  elements.theme.setAttribute("aria-label", `Switch to ${isDeep ? "shallow" : "deep"} color scheme`);
+  elements.theme.querySelector(".theme-toggle-label").textContent = isDeep ? "Deep" : "Shallow";
+  document.querySelector('meta[name="theme-color"]').content = isDeep ? "#18251d" : "#edf4eb";
+}
+
+function toggleTheme() {
+  const next = document.documentElement.dataset.depth === "deep" ? "shallow" : "deep";
+  localStorage.setItem(THEME_KEY, next);
+  applyTheme(next);
+}
 
 function loadNotes() {
   try {
@@ -161,6 +177,7 @@ elements.search.addEventListener("input", renderList);
 $("#new-note").addEventListener("click", addNote);
 $("#delete-note").addEventListener("click", removeNote);
 $("#duplicate-note").addEventListener("click", copyNote);
+elements.theme.addEventListener("click", toggleTheme);
 $("#menu-button").addEventListener("click", () => document.body.classList.add("sidebar-open"));
 $(".mobile-close").addEventListener("click", closeSidebar);
 elements.scrim.addEventListener("click", closeSidebar);
@@ -169,4 +186,5 @@ document.addEventListener("keydown", (event) => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); elements.search.focus(); }
 });
 
+applyTheme(localStorage.getItem(THEME_KEY) === "deep" ? "deep" : "shallow");
 renderEditor();
