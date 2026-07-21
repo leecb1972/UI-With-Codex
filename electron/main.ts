@@ -10,7 +10,7 @@ function createWindow(): void {
     height: 820,
     minWidth: 680,
     minHeight: 520,
-    title: "Paper — Notes",
+    title: "Tony Notes",
     backgroundColor: "#edf4eb",
     webPreferences: {
       contextIsolation: true,

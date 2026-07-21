@@ -58,6 +58,7 @@ export default function App() {
   const visibleNotes = useMemo(() => filterNotes(sortNotes(notes), query), [notes, query]);
 
   useEffect(() => {
+    document.title = "Tony Notes";
     document.documentElement.dataset.depth = depth;
     document.documentElement.style.colorScheme = depth === "deep" ? "dark" : "light";
     localStorage.setItem(THEME_KEY, depth);
@@ -124,6 +125,16 @@ export default function App() {
         <aside className="sidebar" aria-label="Notes list">
           <div className="sidebar-actions">
             <button className="icon-button mobile-close" type="button" aria-label="Close notes" onClick={() => setSidebarOpen(false)}>×</button>
+            <div className="app-brand">
+              <svg className="app-logo" viewBox="0 0 64 64" role="img" aria-label="Tony Notes logo">
+                <rect className="logo-background" width="64" height="64" rx="15" />
+                <path className="logo-paper" d="M18 11h20l10 10v32H18z" />
+                <path className="logo-fold" d="M38 11v10h10" />
+                <path className="logo-fold-line" d="M38 11v10h10" />
+                <path className="logo-writing" d="M25 29h16M25 36h14M25 43h9" />
+              </svg>
+              <h1>Tony Notes</h1>
+            </div>
             <button className="new-note" type="button" onClick={addNote}><span aria-hidden="true">＋</span> New note</button>
             <label className="search-box">
               <span aria-hidden="true">⌕</span><span className="sr-only">Search notes</span>
@@ -147,13 +158,7 @@ export default function App() {
             <button className="theme-toggle" type="button" aria-pressed={depth === "deep"} aria-label={`Switch to ${depth === "deep" ? "shallow" : "deep"} color scheme`} onClick={() => setDepth(depth === "deep" ? "shallow" : "deep")}>
               <span className="theme-toggle-icon" aria-hidden="true" /><span className="theme-toggle-label">{depth === "deep" ? "Deep" : "Shallow"}</span>
             </button>
-            <svg className="profile-avatar" viewBox="0 0 64 64" role="img" aria-label="Paper Notes">
-              <rect className="logo-background" width="64" height="64" rx="15" />
-              <path className="logo-paper" d="M18 11h20l10 10v32H18z" />
-              <path className="logo-fold" d="M38 11v10h10" />
-              <path className="logo-fold-line" d="M38 11v10h10" />
-              <path className="logo-writing" d="M25 29h16M25 36h14M25 43h9" />
-            </svg>
+            <div className="profile-avatar" aria-hidden="true">TL</div>
             <div className="profile-copy"><strong>Tony Li’s workspace</strong><span>Personal</span></div>
             <button className="icon-button" type="button" aria-label="Workspace options">•••</button>
           </div>

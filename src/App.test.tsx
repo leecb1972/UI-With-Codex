@@ -5,6 +5,11 @@ import App from "./App";
 describe("Paper desktop app", () => {
   beforeEach(() => localStorage.clear());
 
+  it("uses Tony Notes as the application title", () => {
+    render(<App />);
+    expect(document.title).toBe("Tony Notes");
+  });
+
   it("creates, edits, searches, duplicates, and deletes notes", async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -33,11 +38,13 @@ describe("Paper desktop app", () => {
     expect(screen.getByRole("button", { name: "Switch to shallow color scheme" })).toHaveAttribute("aria-pressed", "true");
   });
 
-  it("displays the Paper Notes SVG logo", () => {
+  it("displays the adaptive SVG logo before the Tony Notes heading", () => {
     render(<App />);
-    const logo = screen.getByRole("img", { name: "Paper Notes" });
+    const logo = screen.getByRole("img", { name: "Tony Notes logo" });
+    const heading = screen.getByRole("heading", { name: "Tony Notes" });
     expect(logo.tagName).toBe("svg");
     expect(logo.querySelector(".logo-background")).toBeInTheDocument();
+    expect(logo.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("edits Markdown and renders a GitHub-flavored preview", async () => {

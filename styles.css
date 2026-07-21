@@ -8,6 +8,9 @@ button { color:inherit; }
 .app-shell { display:grid; grid-template-columns:340px minmax(0,1fr); grid-template-rows:minmax(0,1fr); height:100vh; max-width:1500px; margin:auto; overflow:hidden; background:var(--paper); box-shadow:0 20px 80px #29271f24; }
 .sidebar { display:flex; flex-direction:column; min-width:0; min-height:0; overflow:hidden; background:var(--sidebar); border-right:1px solid var(--line); }
 .sidebar-actions { position:relative; padding:24px 22px 18px; }
+.app-brand { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.app-brand h1 { margin:0; color:var(--ink); font:500 22px/1 "Newsreader",serif; letter-spacing:-.01em; }
+.app-logo { display:block; width:30px; height:30px; border-radius:8px; box-shadow:0 1px 4px #0002; }
 .new-note { display:flex; align-items:center; justify-content:center; gap:9px; width:100%; height:44px; border:1px solid var(--line); border-radius:4px; background:var(--white); color:var(--ink); cursor:pointer; font-weight:600; box-shadow:0 2px 7px #4b463d0b; transition:.2s; }
 .new-note:hover { border-color:var(--muted); background:var(--white); color:var(--accent); transform:translateY(-1px); box-shadow:0 4px 12px #4b463d14; }
 .search-box { display:flex; align-items:center; gap:9px; height:40px; margin-top:13px; padding:0 12px; border:1px solid var(--line); background:var(--input); color:var(--muted); border-radius:4px; }
@@ -32,7 +35,7 @@ kbd { padding:2px 5px; border:1px solid var(--key-line); border-bottom-width:2px
 .theme-toggle-icon { position:relative; width:14px; height:14px; overflow:hidden; border:1px solid currentColor; border-radius:50%; }
 .theme-toggle-icon::after { position:absolute; inset:-1px -1px -1px 50%; background:currentColor; content:""; }
 :root[data-depth="deep"] .theme-toggle-icon { transform:rotate(180deg); }
-.profile-avatar { display:block; flex:none; width:34px; height:34px; border-radius:9px; box-shadow:0 1px 4px #0002; }
+.profile-avatar { display:grid; flex:none; place-items:center; width:34px; height:34px; background:var(--avatar); border-radius:50%; font:500 11px "DM Mono",monospace; }
 .logo-background { fill:var(--logo-bg); }.logo-paper { fill:var(--logo-paper); }.logo-fold { fill:var(--logo-fold); }
 .logo-fold-line,.logo-writing { fill:none; stroke:var(--logo-ink); stroke-linejoin:round; stroke-width:2; }
 .logo-writing { stroke-linecap:round; stroke-width:3; }
