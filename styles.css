@@ -1,7 +1,7 @@
-:root { --paper:#f8f6f1; --sidebar:#efede6; --ink:#24241f; --muted:#77756d; --line:#dcd8ce; --accent:#d85d3c; --white:#fffefa; }
+:root { --paper:#edf4f5; --sidebar:#dfeaec; --ink:#20292c; --muted:#68787c; --line:#c9d7da; --accent:#c65f45; --white:#fffefa; }
 * { box-sizing:border-box; }
 html, body { margin:0; min-height:100%; }
-body { background:#d8d5ce; color:var(--ink); font-family:"DM Sans",sans-serif; }
+body { background:#aebfc5; color:var(--ink); font-family:"DM Sans",sans-serif; }
 button, input, textarea { font:inherit; }
 button { color:inherit; }
 .app-shell { display:grid; grid-template-columns:340px minmax(0,1fr); height:100vh; max-width:1500px; margin:auto; overflow:hidden; background:var(--paper); box-shadow:0 20px 80px #29271f24; }
