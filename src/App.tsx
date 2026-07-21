@@ -1,4 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Editor from "react-simple-code-editor";
+import ReactMarkdown from "react-markdown";
+import { highlight, languages } from "prismjs";
+import "prismjs/components/prism-markdown";
+import remarkGfm from "remark-gfm";
 import { countWords, createNote, deriveTitle, duplicateNote, filterNotes, notePreview, sortNotes } from "./notes";
 import type { ColorDepth, Note } from "./types";
 
@@ -40,6 +45,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [saveState, setSaveState] = useState<"saved" | "saving">("saved");
+  const [editorMode, setEditorMode] = useState<"edit" | "preview">("edit");
   const [depth, setDepth] = useState<ColorDepth>(() => localStorage.getItem(THEME_KEY) === "deep" ? "deep" : "shallow");
   const titleRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -148,6 +154,10 @@ export default function App() {
             <button className="icon-button menu-button" type="button" aria-label="Open notes" onClick={() => setSidebarOpen(true)}>☰</button>
             <div className={`save-state ${saveState}`}><span /> {saveState === "saving" ? "Saving" : "Saved"}</div>
             <div className="editor-actions">
+              <div className="mode-switch" role="group" aria-label="Markdown view">
+                <button className={`mode-button ${editorMode === "edit" ? "active" : ""}`} type="button" aria-pressed={editorMode === "edit"} onClick={() => setEditorMode("edit")}>Edit</button>
+                <button className={`mode-button ${editorMode === "preview" ? "active" : ""}`} type="button" aria-pressed={editorMode === "preview"} onClick={() => setEditorMode("preview")}>Preview</button>
+              </div>
               <button className="text-button" type="button" onClick={copyActive}>Duplicate</button>
               <button className="icon-button danger" type="button" aria-label="Delete note" onClick={removeActive}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5" /></svg></button>
             </div>
@@ -156,7 +166,32 @@ export default function App() {
             <article className="editor">
               <div className="date-line">{formatDate(activeNote.updatedAt)}</div>
               <input ref={titleRef} className="title-input" aria-label="Note title" placeholder="Untitled note" value={activeNote.title} onChange={(event) => updateActive({ title: event.target.value, body: activeNote.body })} />
-              <textarea className="body-input" aria-label="Note content" placeholder="Start writing…" value={activeNote.body} onChange={(event) => updateActive({ title: activeNote.title, body: event.target.value })} />
+              {editorMode === "edit" ? (
+                <>
+                  <label className="sr-only" htmlFor="note-content">Note content</label>
+                  <Editor
+                    value={activeNote.body}
+                    onValueChange={(body) => updateActive({ title: activeNote.title, body })}
+                    highlight={(code) => highlight(code, languages.markdown, "markdown")}
+                    padding={0}
+                    className="markdown-editor"
+                    textareaClassName="markdown-editor-input"
+                    textareaId="note-content"
+                    placeholder="Start writing…"
+                  />
+                </>
+              ) : (
+                <div className="markdown-preview" aria-label="Markdown preview">
+                  {activeNote.body.trim() ? (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{ a: ({ children, ...props }) => <a {...props} target="_blank" rel="noreferrer">{children}</a> }}
+                    >
+                      {activeNote.body}
+                    </ReactMarkdown>
+                  ) : <p className="preview-empty">Nothing to preview yet.</p>}
+                </div>
+              )}
             </article>
           </div>
           <footer className="status-bar"><span>{words} {words === 1 ? "word" : "words"}</span><span className="shortcut-hint"><kbd>⌘</kbd><kbd>N</kbd> new note</span></footer>

@@ -32,4 +32,23 @@ describe("Paper desktop app", () => {
     expect(localStorage.getItem("paper-color-depth")).toBe("deep");
     expect(screen.getByRole("button", { name: "Switch to shallow color scheme" })).toHaveAttribute("aria-pressed", "true");
   });
+
+  it("edits Markdown and renders a GitHub-flavored preview", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    fireEvent.change(screen.getByRole("textbox", { name: "Note content" }), {
+      target: { value: "## Release checklist\n\n- [x] **Build** desktop app\n- [ ] Ship it" },
+    });
+    await user.click(screen.getByRole("button", { name: "Preview" }));
+
+    const preview = screen.getByLabelText("Markdown preview");
+    expect(preview).toContainElement(screen.getByRole("heading", { name: "Release checklist" }));
+    expect(screen.getByText("Build").tagName).toBe("STRONG");
+    expect(screen.getAllByRole("checkbox")).toHaveLength(2);
+    expect(screen.getByRole("button", { name: "Preview" })).toHaveAttribute("aria-pressed", "true");
+
+    await user.click(screen.getByRole("button", { name: "Edit" }));
+    expect((screen.getByRole("textbox", { name: "Note content" }) as HTMLTextAreaElement).value).toContain("## Release checklist");
+  });
 });

@@ -17,8 +17,12 @@
   "dependencies": {
     "@vitejs/plugin-react": "latest",
     "electron": "latest",
+    "prismjs": "^1.30.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-markdown": "^10.1.0",
+    "react-simple-code-editor": "^0.14.1",
+    "remark-gfm": "^4.0.1",
     "vite": "latest"
   },
   "devDependencies": {
@@ -26,6 +30,7 @@
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
     "@types/node": "latest",
+    "@types/prismjs": "^1.26.6",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "concurrently": "latest",
