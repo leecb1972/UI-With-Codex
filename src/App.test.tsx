@@ -10,6 +10,29 @@ describe("Paper desktop app", () => {
     expect(document.title).toBe("Tony Notes");
   });
 
+  it("ignores malformed persisted notes while preserving valid notes", () => {
+    localStorage.setItem("paper-notes-v1", JSON.stringify([
+      { id: "broken" },
+      { id: "kept", title: "Recovered note", body: "Still here", updatedAt: "2026-07-21T12:00:00.000Z" },
+      { id: "bad-date", title: "Invalid date", body: "", updatedAt: "not-a-date" },
+    ]));
+
+    render(<App />);
+
+    expect(screen.getByRole("textbox", { name: "Note title" })).toHaveValue("Recovered note");
+    expect(screen.getByText("01")).toBeInTheDocument();
+  });
+
+  it("flushes a pending edit when the app unmounts", () => {
+    const { unmount } = render(<App />);
+    fireEvent.change(screen.getByRole("textbox", { name: "Note title" }), { target: { value: "Last-second edit" } });
+
+    unmount();
+
+    const savedNotes = JSON.parse(localStorage.getItem("paper-notes-v1") ?? "[]") as Array<{ title: string }>;
+    expect(savedNotes[0]?.title).toBe("Last-second edit");
+  });
+
   it("creates, edits, searches, duplicates, and deletes notes", async () => {
     const user = userEvent.setup();
     render(<App />);

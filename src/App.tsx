@@ -19,10 +19,23 @@ export const seedNotes: Note[] = [
   { id: "reading", title: "Reading list", body: "The Creative Act — Rick Rubin\nA Swim in a Pond in the Rain — George Saunders\nWays of Seeing — John Berger", updatedAt: "2026-07-18T09:05:00.000Z" },
 ];
 
+function isNote(value: unknown): value is Note {
+  if (typeof value !== "object" || value === null) return false;
+  const note = value as Record<string, unknown>;
+  return typeof note.id === "string"
+    && note.id.length > 0
+    && typeof note.title === "string"
+    && typeof note.body === "string"
+    && typeof note.updatedAt === "string"
+    && Number.isFinite(Date.parse(note.updatedAt));
+}
+
 function loadNotes(): Note[] {
   try {
     const stored: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null");
-    return Array.isArray(stored) && stored.length ? sortNotes(stored as Note[]) : seedNotes;
+    if (!Array.isArray(stored)) return seedNotes;
+    const validNotes = stored.filter(isNote);
+    return validNotes.length ? sortNotes(validNotes) : seedNotes;
   } catch {
     return seedNotes;
   }
@@ -44,7 +57,7 @@ function relativeDate(iso: string): string {
 
 export default function App() {
   const [notes, setNotes] = useState<Note[]>(loadNotes);
-  const [activeId, setActiveId] = useState(() => loadNotes()[0]?.id ?? "");
+  const [activeId, setActiveId] = useState(() => notes[0]?.id ?? "");
   const [query, setQuery] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [saveState, setSaveState] = useState<"saved" | "saving">("saved");
@@ -53,6 +66,7 @@ export default function App() {
   const titleRef = useRef<HTMLInputElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const pendingNotes = useRef<Note[] | undefined>(undefined);
 
   const activeNote = notes.find((note) => note.id === activeId) ?? notes[0];
   const visibleNotes = useMemo(() => filterNotes(sortNotes(notes), query), [notes, query]);
@@ -65,17 +79,31 @@ export default function App() {
     document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute("content", depth === "deep" ? "#18251d" : "#edf4eb");
   }, [depth]);
 
-  useEffect(() => () => clearTimeout(saveTimer.current), []);
+  const flushPendingSave = useCallback(() => {
+    clearTimeout(saveTimer.current);
+    if (!pendingNotes.current) return;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(pendingNotes.current));
+    pendingNotes.current = undefined;
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", flushPendingSave);
+    return () => {
+      window.removeEventListener("beforeunload", flushPendingSave);
+      flushPendingSave();
+    };
+  }, [flushPendingSave]);
 
   const save = useCallback((nextNotes: Note[]) => {
     setNotes(nextNotes);
     setSaveState("saving");
+    pendingNotes.current = nextNotes;
     clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(nextNotes));
+      flushPendingSave();
       setSaveState("saved");
     }, 350);
-  }, []);
+  }, [flushPendingSave]);
 
   const addNote = useCallback(() => {
     const note = createNote();
