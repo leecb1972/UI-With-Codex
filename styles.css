@@ -5,8 +5,8 @@ html, body { margin:0; min-height:100%; }
 body { background:var(--canvas); color:var(--ink); font-family:"DM Sans",sans-serif; transition:background-color .25s ease,color .25s ease; }
 button, input, textarea { font:inherit; }
 button { color:inherit; }
-.app-shell { display:grid; grid-template-columns:340px minmax(0,1fr); height:100vh; max-width:1500px; margin:auto; overflow:hidden; background:var(--paper); box-shadow:0 20px 80px #29271f24; }
-.sidebar { display:flex; flex-direction:column; min-width:0; background:var(--sidebar); border-right:1px solid var(--line); }
+.app-shell { display:grid; grid-template-columns:340px minmax(0,1fr); grid-template-rows:minmax(0,1fr); height:100vh; max-width:1500px; margin:auto; overflow:hidden; background:var(--paper); box-shadow:0 20px 80px #29271f24; }
+.sidebar { display:flex; flex-direction:column; min-width:0; min-height:0; overflow:hidden; background:var(--sidebar); border-right:1px solid var(--line); }
 .sidebar-actions { position:relative; padding:24px 22px 18px; }
 .new-note { display:flex; align-items:center; justify-content:center; gap:9px; width:100%; height:44px; border:1px solid var(--line); border-radius:4px; background:var(--white); color:var(--ink); cursor:pointer; font-weight:600; box-shadow:0 2px 7px #4b463d0b; transition:.2s; }
 .new-note:hover { border-color:var(--muted); background:var(--white); color:var(--accent); transform:translateY(-1px); box-shadow:0 4px 12px #4b463d14; }
@@ -14,7 +14,7 @@ button { color:inherit; }
 .search-box input { flex:1; width:0; border:0; outline:0; background:transparent; color:var(--ink); }
 kbd { padding:2px 5px; border:1px solid var(--key-line); border-bottom-width:2px; border-radius:4px; background:var(--key); font:10px "DM Mono",monospace; }
 .list-heading { display:flex; justify-content:space-between; padding:10px 26px; color:var(--muted); text-transform:uppercase; letter-spacing:.14em; font:500 10px "DM Mono",monospace; }
-.notes-list { flex:1; padding:0 12px; overflow:auto; }
+.notes-list { flex:1; min-height:0; padding:0 12px; overflow:auto; }
 .note-card { display:block; width:100%; padding:17px 14px; border:0; border-top:1px solid var(--line); background:transparent; text-align:left; cursor:pointer; border-radius:3px; }
 .note-card:hover { background:var(--soft-hover); }
 .note-card.active { background:var(--white); box-shadow:inset 3px 0 var(--accent), 0 2px 8px #4b463d0b; }
